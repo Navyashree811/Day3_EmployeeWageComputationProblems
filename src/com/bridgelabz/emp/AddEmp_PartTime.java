@@ -1,3 +1,6 @@
+/*
+ * UC3 : Add Part time Employee & Wage
+ */
 package com.bridgelabz.emp;
 
 public class AddEmp_PartTime {
