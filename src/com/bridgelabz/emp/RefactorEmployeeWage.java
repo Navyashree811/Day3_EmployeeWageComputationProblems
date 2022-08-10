@@ -1,10 +1,10 @@
 /*
- * Calculate wages till a condition of total working hours or days is reached for a month .
+ * UC 7 : Refactor the code to write a class method to compute Employee Wage.
  */
 package com.bridgelabz.emp;
 
-public class EmployeeMaxWorkingHours {
-	public static void main(String[] args) {
+public class RefactorEmployeeWage {
+	public static void calculateTotalWage() {
 		final int PART_TIME = 1;
 		final int FULL_TIME = 2;
 		final int WAGE_PER_HR = 20;
@@ -36,4 +36,9 @@ public class EmployeeMaxWorkingHours {
 		}
 		System.out.println("Total wage for a month is " + totalWage);
 	}
+
+	public static void main(String args[]) {
+		calculateTotalWage();
+	}
+
 }
