@@ -1,7 +1,13 @@
 /*
- * UC 10 : Ability to manage Employee wage of multiple companies.
+ * UC 11 : Ability to manage Employee wage of multiple companies using Interface approach.
  */
 package com.bridgelabz.emp;
+
+interface IEmployeeWageComputation {
+	public void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs);
+
+	public void calculateTotalWage();
+}
 
 class CompanyEmpWage {
 	// instance constants
@@ -24,17 +30,18 @@ class CompanyEmpWage {
 		this.totalEmpWage = totalEmpWage;
 	}
 
+	@Override
 	public String toString() {
 		System.out.println("Details of " + COMPANY_NAME + " employee");
 		System.out.println("-----------------------------------------------------");
-		System.out.println("Wage per hour:" + WAGE_PER_HR);
+		System.err.println("Wage per hour:" + WAGE_PER_HR);
 		System.out.println("Maximum working days:" + MAX_WORKING_DAYS);
 		System.out.println("Maximum working hours:" + MAX_WORKING_HRS);
 		return "Total wage for a month of " + COMPANY_NAME + " employee is " + totalEmpWage + "\n";
 	}
 }
 
-public class EmployeeWage {
+public class EmployeeWage implements IEmployeeWageComputation {
 	// class constants
 	public static final int PART_TIME = 1;
 	public static final int FULL_TIME = 2;
@@ -48,7 +55,7 @@ public class EmployeeWage {
 		index = 0;
 	}
 
-	void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs) {
+	public void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs) {
 		companies[index++] = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
 	}
 
@@ -67,7 +74,7 @@ public class EmployeeWage {
 		}
 	}
 
-	void calculateTotalWage() {
+	public void calculateTotalWage() {
 		for (CompanyEmpWage company : companies) {
 			int totalWage = calculateTotalWage(company);
 			company.setTotalEmployeeWage(totalWage);
@@ -94,9 +101,10 @@ public class EmployeeWage {
 
 	public static void main(String args[]) {
 		EmployeeWage manageWageMultipleCompanies = new EmployeeWage(3);
-		manageWageMultipleCompanies.addCompany("Microsoft", 4, 30, 100);
-		manageWageMultipleCompanies.addCompany("Google", 5, 40, 170);
-		manageWageMultipleCompanies.addCompany("Apple", 9, 10, 70);
+		manageWageMultipleCompanies.addCompany("TCS", 6, 24, 100);
+		manageWageMultipleCompanies.addCompany("Deloitte", 8, 20, 120);
+		manageWageMultipleCompanies.addCompany("Capgemini", 7, 22, 110);
 		manageWageMultipleCompanies.calculateTotalWage();
 	}
+
 }
