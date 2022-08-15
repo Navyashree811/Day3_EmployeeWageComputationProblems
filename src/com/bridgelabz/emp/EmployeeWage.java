@@ -1,7 +1,9 @@
 /*
- * UC 11 : Ability to manage Employee wage of multiple companies using Interface approach.
+ * UC 12 : Refactor to have list of multiple companies to manage Employee Wage.
  */
 package com.bridgelabz.emp;
+
+import java.util.ArrayList;
 
 interface IEmployeeWageComputation {
 	public void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs);
@@ -34,7 +36,7 @@ class CompanyEmpWage {
 	public String toString() {
 		System.out.println("Details of " + COMPANY_NAME + " employee");
 		System.out.println("-----------------------------------------------------");
-		System.err.println("Wage per hour:" + WAGE_PER_HR);
+		System.out.println("Wage per hour:" + WAGE_PER_HR);
 		System.out.println("Maximum working days:" + MAX_WORKING_DAYS);
 		System.out.println("Maximum working hours:" + MAX_WORKING_HRS);
 		return "Total wage for a month of " + COMPANY_NAME + " employee is " + totalEmpWage + "\n";
@@ -46,17 +48,15 @@ public class EmployeeWage implements IEmployeeWageComputation {
 	public static final int PART_TIME = 1;
 	public static final int FULL_TIME = 2;
 	// instance variables
-	int noOfCompanies, index;
-	CompanyEmpWage[] companies;
+	ArrayList<CompanyEmpWage> companies;
 
-	public EmployeeWage(int noOfCompanies) {
-		this.noOfCompanies = noOfCompanies;
-		companies = new CompanyEmpWage[noOfCompanies];
-		index = 0;
+	public EmployeeWage() {
+		companies = new ArrayList<>();
 	}
 
 	public void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs) {
-		companies[index++] = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
+		CompanyEmpWage company = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
+		companies.add(company);
 	}
 
 	int generateEmployeeType() {
@@ -84,7 +84,7 @@ public class EmployeeWage implements IEmployeeWageComputation {
 
 	int calculateTotalWage(CompanyEmpWage companyEmpWage) {
 		System.out.println("Computation of total wage of " + companyEmpWage.COMPANY_NAME + " employee");
-		System.out.println("-----------------------------------------------------");
+		System.out.println("-------------------------------------------");
 		System.out.printf("%5s     %5s     %5s     %5s\n", "Day", "Workinghrs", "Wage", "Total working hrs");
 
 		int workingHrs, totalWage = 0;
@@ -100,11 +100,13 @@ public class EmployeeWage implements IEmployeeWageComputation {
 	}
 
 	public static void main(String args[]) {
-		EmployeeWage manageWageMultipleCompanies = new EmployeeWage(3);
-		manageWageMultipleCompanies.addCompany("TCS", 6, 24, 100);
-		manageWageMultipleCompanies.addCompany("Deloitte", 8, 20, 120);
-		manageWageMultipleCompanies.addCompany("Capgemini", 7, 22, 110);
-		manageWageMultipleCompanies.calculateTotalWage();
+		EmployeeWage manageCompanies = new EmployeeWage();
+		manageCompanies.addCompany("Microsoft", 7, 20, 100);
+		manageCompanies.addCompany("Google", 5, 24, 170);
+		manageCompanies.addCompany("Apple", 6, 18, 160);
+		manageCompanies.addCompany("Amazon", 8, 22, 150);
+		manageCompanies.addCompany("FlipCard", 10, 26, 180);
+		manageCompanies.calculateTotalWage();
 	}
 
 }
